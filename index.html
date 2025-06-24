@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Global Chat</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.4.1/socket.io.min.js"></script>
+</head>
+<body>
+  <h2>Global Chat Room</h2>
+  <div id="chat"></div>
+  <input id="username" placeholder="Username" />
+  <input id="message" placeholder="Message" />
+  <button onclick="joinChat()">Join</button>
+  <button onclick="sendMessage()">Send</button>
+
+  <script>
+    const socket = io();
+    function joinChat() {
+      const user = document.getElementById('username').value;
+      socket.emit('join', { username: user });
+    }
+    function sendMessage() {
+      const user = document.getElementById('username').value;
+      const msg = document.getElementById('message').value;
+      socket.emit('message', { username: user, msg: msg });
+      document.getElementById('message').value = '';
+    }
+    socket.on('status', data => {
+      const div = document.getElementById('chat');
+      div.innerHTML += `<p><em>${data.msg}</em></p>`;
+    });
+    socket.on('message', data => {
+      const div = document.getElementById('chat');
+      div.innerHTML += `<p><strong>${data.username}:</strong> ${data.msg}</p>`;
+    });
+  </script>
+</body>
