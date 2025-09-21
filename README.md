@@ -12,7 +12,7 @@ A real-time global chat application built with Flask, Flask-SocketIO, and Redis.
 
 1. Clone this repo:
    ```bash
-   git clone https://github.com/yourusername/global-chat-platform.git
+   git clone https://github.com/saipavank63/global-chat-platform.git
    cd global-chat-platform
    ```
 
